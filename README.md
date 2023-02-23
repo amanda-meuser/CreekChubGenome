@@ -20,10 +20,8 @@ git push
 
 ## SSH Key
 
-Be aware that you may have to make an ssh key in your GitHub profile before you're able to commit things. To do so, type:
-`ssh-keygen -t rsa -C "your_github_email@email.com"`
+Be aware that you may have to make an ssh key in your GitHub profile before you're able to commit things. To do so, type `ssh-keygen -t rsa -C "your_github_email@email.com"` on Cedar.
 
-Then enter through the options to add the key to the default location and not add a passcode. Then type:
-`cat /home/username/.ssh/id\_rsa.pub`(if this was the location that it suggested to add the key to)
+Then enter through the options to add the key to the default location and not add a passcode. Then type `cat /home/username/.ssh/id\_rsa.pub`(if this was the location that it suggested to add the key to).
 
 Then copy the key that it prints and paste it into the key box of the "SSH key" page, under profile settings.
