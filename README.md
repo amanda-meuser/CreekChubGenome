@@ -14,7 +14,7 @@ These lines of code should work for making commits and you can commit as many fi
 
 ```
 git add <filename(s)> 
-git commit -m <message>
+git commit -m "message about the commit -- will apply to all files in this commit"
 git push 
 ```
 
