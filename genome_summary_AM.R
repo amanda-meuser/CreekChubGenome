@@ -1,26 +1,43 @@
 ## Originally written by Liz Mandeville, modified by Amanda Meuser
 
-## Unix
+
+####################################################################################################################################
+# For HiFiasm assembly
+####################################################################################################################################
+## Unix:
 ## grep "^>" *.fa -c
 ## creekchub_assembly_hifiasm_nov2022.bp.hap1.p_ctg.fa:568
 ## creekchub_assembly_hifiasm_nov2022.bp.hap2.p_ctg.fa:380
 ## creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa:239
 ## creekchub_assembly_hifiasm_nov2022.bp.p_utg.fa:13966
 
-try to grep "n", n's mean scaffold no n's mean contig
+#try to grep "n", n's mean scaffold no n's mean contig
+
+## grep "N" *.fa -c (just looking for lines with N)
+## creekchub_assembly_hifiasm_nov2022.bp.hap1.p_ctg.fa:0
+## creekchub_assembly_hifiasm_nov2022.bp.hap2.p_ctg.fa:0
+## creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa:0
+## creekchub_assembly_hifiasm_nov2022.bp.p_utg.fa:0
+
+## grep -P '^(?=.*>)(?=.*N)' *.fa -c (looking for lines that have both > and N)
+## creekchub_assembly_hifiasm_nov2022.bp.hap1.p_ctg.fa:0
+## creekchub_assembly_hifiasm_nov2022.bp.hap2.p_ctg.fa:0
+## creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa:0
+## creekchub_assembly_hifiasm_nov2022.bp.p_utg.fa:0
+
+# soooo that means no scaffolds just contigs? scaffolds are made up of contigs plus gaps that are filled with N's. would having scaffolds mean a better or worse assembly than just with contigs?
+
+# create scaffold (contig?) lengths file 
+# awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa > scafflengths_p_ctg.txt
 
 
-## awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa > scafflengths_p_ctg.txt
+install.packages("devtools")
+devtools::install_github('A-BN/fastaUtils')
 
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+library(fastaUtils)
 
-BiocManager::install("CNEr")
-
-library(CNEr)
-
-N50("creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa")
-N90("creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa")
+# use the fastaUtils package to calculates L50/90 and N50/90
+fastanalyze(fasta = 'creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa', metrics = F, plot = F, verbose = F)
 
 scaff <- read.table("scafflengths_p_ctg.txt", sep="\t")
 head(scaff)
@@ -39,9 +56,82 @@ pdf("p_ctg_accumulation.pdf")
 plot(cumsum(sort(as.numeric(scaff$V2), decreasing=T)), xlab="scaffold number", ylab="cumulative genome length")
 dev.off()
 
-####################################################################################################################
 
-## awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' filtered.asm.cns.fa > scafflengths_filteredasmcns.txt
+####################################################################################################################################
+# For IPA assembly
+####################################################################################################################################
+
+## Unix: 
+## cd ../creekchub_nov2022/
+## grep "^>" *.fa -c
+## final_purged_haplotigs.fasta:7904
+## final_purged_primary.fasta:873
+
+## Creating scaffold lengths file for both the primary and haplotig fasta files
+## awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' final_purged_haplotigs.fasta > scafflengths_haplotigs.txt
+## awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' final_purged_primary.fasta > scafflengths_primary.txt
+
+# for primary assembly
+scaff2 <- read.table("../creekchub_nov2022/scafflengths_primary.txt", sep="\t")
+head(scaff2)
+max(scaff2$V2)
+mean(scaff2$V2)
+median(scaff2$V2)
+
+## Plot sorted scaffold length
+pdf("primary_sortedscaffold.pdf")
+plot(sort(scaff2$V2, decreasing=T), xlab="scaffold number", ylab="scaffold length")
+dev.off()
+
+## plot accumulation of genome length
+pdf("primary_accumulation.pdf")
+plot(cumsum(sort(as.numeric(scaff2$V2), decreasing=T)), xlab="scaffold number", ylab="cumulative genome length")
+dev.off()
+
+
+# for haplotigs
+scaff3 <- read.table("../creekchub_nov2022/scafflengths_haplotigs.txt", sep="\t")
+head(scaff3)
+max(scaff3$V2)
+mean(scaff3$V2)
+median(scaff3$V2)
+
+## Plot sorted scaffold length
+pdf("haplotigs_sortedscaffold.pdf")
+plot(sort(scaff3$V2, decreasing=T), xlab="scaffold number", ylab="scaffold length")
+dev.off()
+
+## plot accumulation of genome length
+pdf("haplotigs_accumulation.pdf")
+plot(cumsum(sort(as.numeric(scaff3$V2), decreasing=T)), xlab="scaffold number", ylab="cumulative genome length")
+dev.off()
+
+
+####################################################################################################################################
+# for HiFiasm vs IPA plot
+####################################################################################################################################
+
+pdf("Hifiasm_IPA_comparison.pdf")
+par(mfrow=c(2,2))
+
+plot(sort(scaff$V2, decreasing=T), main="HiFiasm Assembly", xlab="", ylab="scaffold length", ylim=c(0,60000000))
+
+plot(sort(scaff2$V2, decreasing=T), main="IPA Assembly", xlab="", ylab="", ylim=c(0,60000000))
+
+plot(cumsum(sort(as.numeric(scaff$V2), decreasing=T)), xlab="scaffold number", ylab="cumulative genome length", ylim=c(0,1200000000))
+
+plot(cumsum(sort(as.numeric(scaff2$V2), decreasing=T)), xlab="scaffold number", ylab="", ylim=c(0,1200000000))
+
+dev.off()
+
+
+
+####################################################################################################################################
+# Liz's original code
+####################################################################################################################################
+
+
+# awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' filtered.asm.cns.fa > scafflengths_filteredasmcns.txt
 
 scaff2 <- read.table("scafflengths_filteredasmcns.txt", sep="\t")
 head(scaff2)
