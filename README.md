@@ -8,7 +8,7 @@ Directory path:
 ## Commits
 
 My idea is that we use a hard link for any files we want to add to the repo, so that we can work on them in our own directories or wherever, but have one dedicated directory from which we commit files. 
-I used `cp -l /path/to/file .`to make a hard link, while in the `creekchub_genome` directory.
+I used `cp -l /path/to/file /path/to/destination/`to make a hard link, while in the `creekchub_genome` directory.
 
 These lines of code should work for making commits and you can commit as many files as you'd like at a time:
 
