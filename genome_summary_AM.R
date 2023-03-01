@@ -71,7 +71,10 @@ dev.off()
 ## awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' final_purged_haplotigs.fasta > scafflengths_haplotigs.txt
 ## awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' final_purged_primary.fasta > scafflengths_primary.txt
 
+
 # for primary assembly
+fastanalyze(fasta = '../creekchub_nov2022/final_purged_primary.fasta', metrics = F, plot = F, verbose = F)
+
 scaff2 <- read.table("../creekchub_nov2022/scafflengths_primary.txt", sep="\t")
 head(scaff2)
 max(scaff2$V2)
@@ -90,6 +93,8 @@ dev.off()
 
 
 # for haplotigs
+fastanalyze(fasta = '../creekchub_nov2022/final_purged_haplotigs.fasta', metrics = F, plot = F, verbose = F)
+
 scaff3 <- read.table("../creekchub_nov2022/scafflengths_haplotigs.txt", sep="\t")
 head(scaff3)
 max(scaff3$V2)
