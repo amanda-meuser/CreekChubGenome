@@ -80,13 +80,21 @@ dev.off()
 
 
 # for primary assembly
-fastanalyze(fasta = '../creekchub_nov2022/final_purged_primary.fasta', metrics = F, plot = F, verbose = F)
+fastanalyze(fasta = '../creekchub_IPA_nov2022/final_purged_primary.fasta', metrics = F, plot = F, verbose = F)
 
-scaff2 <- read.table("../creekchub_nov2022/scafflengths_primary.txt", sep="\t")
+scaff2 <- read.table("../creekchub_IPA_nov2022/scafflengths_primary.txt", sep="\t")
 head(scaff2)
 max(scaff2$V2)
 mean(scaff2$V2)
 median(scaff2$V2)
+
+# sort, starting at largest value and decreasing
+scaff_ordered2 <- scaff2[order(-scaff2$V2),]
+# length of 50th contig 
+scaff_ordered2[50,2]
+# length of 25th contig 
+scaff_ordered2[25,2]
+
 
 ## Plot sorted scaffold length
 pdf("primary_sortedscaffold.pdf")
@@ -100,13 +108,21 @@ dev.off()
 
 
 # for haplotigs
-fastanalyze(fasta = '../creekchub_nov2022/final_purged_haplotigs.fasta', metrics = F, plot = F, verbose = F)
+fastanalyze(fasta = '../creekchub_IPA_nov2022/final_purged_haplotigs.fasta', metrics = F, plot = F, verbose = F)
 
-scaff3 <- read.table("../creekchub_nov2022/scafflengths_haplotigs.txt", sep="\t")
+scaff3 <- read.table("../creekchub_IPA_nov2022/scafflengths_haplotigs.txt", sep="\t")
 head(scaff3)
 max(scaff3$V2)
 mean(scaff3$V2)
 median(scaff3$V2)
+
+# sort, starting at largest value and decreasing
+scaff_ordered3 <- scaff3[order(-scaff3$V2),]
+# length of 50th contig 
+scaff_ordered3[50,2]
+# length of 25th contig 
+scaff_ordered3[25,2]
+
 
 ## Plot sorted scaffold length
 pdf("haplotigs_sortedscaffold.pdf")
@@ -126,13 +142,13 @@ dev.off()
 pdf("Hifiasm_IPA_comparison.pdf")
 par(mfrow=c(2,2))
 
-plot(sort(scaff$V2, decreasing=T), main="HiFiasm Assembly", xlab="", ylab="scaffold length", ylim=c(0,60000000))
+plot(scaff_ordered$V2, main="HiFiasm Assembly", xlab="", ylab="scaffold length", ylim=c(0,60000000), xlim=c(0,900))
 
-plot(sort(scaff2$V2, decreasing=T), main="IPA Assembly", xlab="", ylab="", ylim=c(0,60000000))
+plot(scaff_ordered2$V2, main="IPA Assembly", xlab="", ylab="", ylim=c(0,60000000), xlim=c(0,900))
 
-plot(cumsum(sort(as.numeric(scaff$V2), decreasing=T)), xlab="scaffold number", ylab="cumulative genome length", ylim=c(0,1200000000))
+plot(cumsum(scaff_ordered$V2), xlab="scaffold number", ylab="cumulative genome length", ylim=c(0,1200000000), xlim=c(0,900))
 
-plot(cumsum(sort(as.numeric(scaff2$V2), decreasing=T)), xlab="scaffold number", ylab="", ylim=c(0,1200000000))
+plot(cumsum(scaff_ordered2$V2), xlab="scaffold number", ylab="", ylim=c(0,1200000000), xlim=c(0,900))
 
 dev.off()
 
