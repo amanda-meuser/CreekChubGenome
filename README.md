@@ -13,6 +13,7 @@ I used `cp -l /path/to/file /path/to/destination/`to make a hard link, while in 
 These lines of code should work for making commits and you can commit as many files as you'd like at a time:
 
 ```
+git pull
 git add <filename(s)> 
 git commit -m "message about the commit -- will apply to all files in this commit"
 git push 
