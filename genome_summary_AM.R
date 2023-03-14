@@ -45,6 +45,13 @@ max(scaff$V2)
 mean(scaff$V2)
 median(scaff$V2)
 
+# sort, starting at largest value and decreasing
+scaff_ordered <- scaff[order(-scaff$V2),]
+# length of 50th contig 
+scaff_ordered[50,2]
+# length of 25th contig 
+scaff_ordered[25,2]
+
 
 ## Plot sorted scaffold length
 pdf("p_ctg_sortedscaffold.pdf")
