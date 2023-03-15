@@ -25,7 +25,7 @@
 ## creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa:0
 ## creekchub_assembly_hifiasm_nov2022.bp.p_utg.fa:0
 
-# soooo that means no scaffolds just contigs? scaffolds are made up of contigs plus gaps that are filled with N's. would having scaffolds mean a better or worse assembly than just with contigs?
+# so that means no scaffolds, just contigs. scaffolds are made up of contigs plus gaps that are filled with N's
 
 # create scaffold (contig?) lengths file 
 # awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa > scafflengths_p_ctg.txt
@@ -33,8 +33,12 @@
 
 install.packages("devtools")
 devtools::install_github('A-BN/fastaUtils')
+devtools::install_github("karthik/wesanderson")
 
 library(fastaUtils)
+library(wesanderson)
+
+col <- wes_palette("Darjeeling1")
 
 # use the fastaUtils package to calculates L50/90 and N50/90
 fastanalyze(fasta = 'creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa', metrics = F, plot = F, verbose = F)
@@ -142,13 +146,13 @@ dev.off()
 pdf("Hifiasm_IPA_comparison.pdf")
 par(mfrow=c(2,2))
 
-plot(scaff_ordered$V2, main="HiFiasm Assembly", xlab="", ylab="scaffold length", ylim=c(0,60000000), xlim=c(0,900))
+plot(scaff_ordered$V2, main="HiFiasm Assembly", xlab="", ylab="Contig length", ylim=c(0,60000000), xlim=c(0,900), col = col[2])
 
-plot(scaff_ordered2$V2, main="IPA Assembly", xlab="", ylab="", ylim=c(0,60000000), xlim=c(0,900))
+plot(scaff_ordered2$V2, main="IPA Assembly", xlab="", ylab="", ylim=c(0,60000000), xlim=c(0,900), col = col[3])
 
-plot(cumsum(scaff_ordered$V2), xlab="scaffold number", ylab="cumulative genome length", ylim=c(0,1200000000), xlim=c(0,900))
+plot(cumsum(scaff_ordered$V2), xlab="Contig number", ylab="Cumulative genome length", ylim=c(0,1200000000), xlim=c(0,900), col = col[2])
 
-plot(cumsum(scaff_ordered2$V2), xlab="scaffold number", ylab="", ylim=c(0,1200000000), xlim=c(0,900))
+plot(cumsum(scaff_ordered2$V2), xlab="Contig number", ylab="", ylim=c(0,1200000000), xlim=c(0,900), col = col[3])
 
 dev.off()
 
