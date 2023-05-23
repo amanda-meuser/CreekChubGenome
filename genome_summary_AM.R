@@ -57,6 +57,18 @@ scaff_ordered[50,2]
 scaff_ordered[25,2]
 
 
+# order the cumulative lengths by largest to smallest contig
+accum <- cumsum(scaff_ordered$V2)
+# total genome length is total with all contigs aka final value in accum
+total_len <- accum[239]
+# percent in top 25 contigs:
+percent50 <- (accum[50] / total_len)*100
+percent50 # 95.13459%
+# percent in top 50 contigs:
+percent25 <- (accum[25] / total_len)*100
+percent25 # 74.67159%
+
+
 ## Plot sorted scaffold length
 pdf("p_ctg_sortedscaffold.pdf")
 plot(sort(scaff$V2, decreasing=T), xlab="scaffold number", ylab="scaffold length")
