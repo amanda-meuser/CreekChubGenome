@@ -101,9 +101,10 @@ fastanalyze(fasta = '../creekchub_IPA_nov2022/final_purged_primary.fasta', metri
 
 scaff2 <- read.table("../creekchub_IPA_nov2022/scafflengths_primary.txt", sep="\t")
 head(scaff2)
-max(scaff2$V2)
-mean(scaff2$V2)
-median(scaff2$V2)
+max(scaff2$V2)  #23528990
+mean(scaff2$V2) #1257076
+median(scaff2$V2) #206534
+length(scaff2$V2) #873
 
 # sort, starting at largest value and decreasing
 scaff_ordered2 <- scaff2[order(-scaff2$V2),]
@@ -111,6 +112,18 @@ scaff_ordered2 <- scaff2[order(-scaff2$V2),]
 scaff_ordered2[50,2]
 # length of 25th contig 
 scaff_ordered2[25,2]
+
+# order the cumulative lengths by largest to smallest contig
+accum2 <- cumsum(scaff_ordered2$V2)
+# total genome length is total with all contigs aka final value in accum
+total_len2 <- accum2[873]
+# percent in top 25 contigs:
+percent50.2 <- (accum2[50] / total_len2)*100
+percent50.2 # 50.77341%
+# percent in top 50 contigs:
+percent25.2 <- (accum2[25] / total_len2)*100
+percent25.2 # 32.48558%
+
 
 
 ## Plot sorted scaffold length
