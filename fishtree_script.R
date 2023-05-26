@@ -19,7 +19,10 @@ mycol <- c("firebrick2", "black")[names]
 
 #plot phylogeny
 plot(phy, use.edge.length = T, tip.color = mycol)
-axisPhylo()
 
 
+# save as a pdf
+pdf("fishtree_phylogeny.pdf", width = 5, height = 4)
+plot(phy, use.edge.length = T, tip.color = mycol)
+dev.off()
 
