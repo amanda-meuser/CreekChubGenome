@@ -169,17 +169,41 @@ dev.off()
 # for HiFiasm vs IPA plot
 ####################################################################################################################################
 
-pdf("Hifiasm_IPA_comparison.pdf")
+# function for adding labels to multi-panel figure, written by Gregory Garner (bitbucket.org/ggg121/r_figure_letter/src/master/)
+put.fig.letter <- function(label, location="topleft", x=NULL, y=NULL, 
+                           offset=c(0, 0), ...) {
+  if(length(label) > 1) {
+    warning("length(label) > 1, using label[1]")
+  }
+  if(is.null(x) | is.null(y)) {
+    coords <- switch(location,
+                     topleft = c(0.015,0.98),
+                     topcenter = c(0.5525,0.98),
+                     topright = c(0.985, 0.98),
+                     bottomleft = c(0.015, 0.02), 
+                     bottomcenter = c(0.5525, 0.02), 
+                     bottomright = c(0.985, 0.02),
+                     c(0.015, 0.98) )
+  } else {
+    coords <- c(x,y)
+  }
+  this.x <- grconvertX(coords[1] + offset[1], from="nfc", to="user")
+  this.y <- grconvertY(coords[2] + offset[2], from="nfc", to="user")
+  text(labels=label[1], x=this.x, y=this.y, xpd=T, ...)
+}
+
+
+
+pdf("Hifiasm_IPA_comparison_labeled.pdf")
 par(mfrow=c(2,2))
-
 plot(scaff_ordered$V2, main="HiFiasm Assembly", xlab="", ylab="Contig length", ylim=c(0,60000000), xlim=c(0,900), col = col[2])
-
+put.fig.letter(label="(a)", location="topleft", font=2, offset=c(0.1, -0.05))
 plot(scaff_ordered2$V2, main="IPA Assembly", xlab="", ylab="", ylim=c(0,60000000), xlim=c(0,900), col = col[3])
-
+put.fig.letter(label="(b)", location="topleft", font=2, offset=c(0.1, -0.05))
 plot(cumsum(scaff_ordered$V2), xlab="Contig number", ylab="Cumulative genome length", ylim=c(0,1200000000), xlim=c(0,900), col = col[2])
-
+put.fig.letter(label="(c)", location="topleft", font=2, offset=c(0.1, -0.05))
 plot(cumsum(scaff_ordered2$V2), xlab="Contig number", ylab="", ylim=c(0,1200000000), xlim=c(0,900), col = col[3])
-
+put.fig.letter(label="(d)", location="topleft", font=2, offset=c(0.1, -0.05))
 dev.off()
 
 
