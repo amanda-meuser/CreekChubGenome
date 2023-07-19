@@ -1,28 +1,11 @@
-# Hello genome paper collaborators!! 
+# A high-quality reference genome for the common creek chub, *Semotilus atromaculatus*
 
-This README.md file is sitting in a dedicated directory on Cedar, for committing files to GitHub related to our creek chub genome manuscript. Let me know if you have a better setup design in mind as I'm not all that familiar with Github but hopefully this will work well!
+R scripts posted here were used for creating plots in the aforementioned manuscript (now available on bioRxiv: https://doi.org/10.1101/2023.07.14.549000). These scripts will also be posted on DataDryad, upon publication of the manuscript. The reference genome itself can be found on NCBI, under accession number: (coming soon...).
 
-Directory path: 
-> /project/rrg-emandevi/creekchub_genome/
+## Description of scripts
 
-## Commits
+`circos_script.R` uses DAGchainer results from CoGe's SynMap analysis (https://genomevolution.org/coge/SynMap.pl) to create a Circos plot that illustrates syntenic matches between two genomes. 
 
-My idea is that we use a hard link for any files we want to add to the repo, so that we can work on them in our own directories or wherever, but have one dedicated directory from which we commit files. 
-I used `cp -l /path/to/file /path/to/destination/`to make a hard link, while in the `creekchub_genome` directory.
+`fishtree_script.R` can be used to create a phylogeny for fish species, indicated in the code. It draws on a database of phylogenetic relationships between species, found on the Fish Tree of Life (https://fishtreeoflife.org/).
 
-These lines of code should work for making commits and you can commit as many files as you'd like at a time:
-
-```
-git pull
-git add <filename(s)> 
-git commit -m "message about the commit -- will apply to all files in this commit"
-git push 
-```
-
-## SSH Key
-
-Be aware that you may have to make an ssh key in your GitHub profile before you're able to commit things. To do so, type `ssh-keygen -t rsa -C "your_github_email@email.com"` on Cedar.
-
-Then enter through the options to add the key to the default location and not add a passcode. Then type `cat /home/username/.ssh/id\_rsa.pub`(if this was the location that it suggested to add the key to).
-
-Then copy the key that it prints and paste it into the key box of the "SSH key" page, under profile settings.
+`genome_summary_AM.R` and `rawdata_summary_AM.R` contain both shell and R code and can be used to compute summary statistics and create summary plots for fasta files of sequencing data, including both assembeled genome contigs and raw sequence data. 
