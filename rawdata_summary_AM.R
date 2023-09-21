@@ -16,13 +16,6 @@
 
 ## Written in R
 
-#if (!require("BiocManager", quietly = TRUE))
-    #install.packages("BiocManager")
-
-#BiocManager::install("CNEr")
-
-library(CNEr)
-
 scaff <- read.table("read_lengths.m64086e_221030_061849.txt", sep="\t")
 head(scaff)
 max(scaff$V2)

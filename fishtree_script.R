@@ -3,11 +3,9 @@
 
 # install packages
 install.packages("fishtree")
-install.packages("ape")
 
 # load packages
 library(fishtree)
-library(ape)
 
 # load desired species into data object
 phy <- fishtree_phylogeny(species = c("Danio rerio", "Semotilus atromaculatus", "Pimephales promelas"))
