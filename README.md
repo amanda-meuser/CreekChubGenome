@@ -6,6 +6,6 @@ R scripts posted here were used for creating plots in the aforementioned manuscr
 
 `circos_script.R` uses DAGchainer results from CoGe's SynMap analysis (https://genomevolution.org/coge/SynMap.pl) to create a Circos plot that illustrates syntenic matches between two genomes. 
 
-`fishtree_script.R` can be used to create a phylogeny for fish species, indicated in the code. It draws on a database of phylogenetic relationships between species, found on the Fish Tree of Life (https://fishtreeoflife.org/).
+`fishtree_script.R` can be used to create a phylogeny for fish species, indicated in the code. It draws on a database of phylogenetic relationships between species, found on the Fish Tree of Life (https://fishtreeoflife.org/). It was originally implemented on RStudio.
 
-`genome_summary_AM.R` and `rawdata_summary_AM.R` contain both shell and R code and can be used to compute summary statistics and create summary plots for fasta files of sequencing data, including both assembeled genome contigs and raw sequence data. 
+`genome_summary_AM.R` and `rawdata_summary_AM.R` contain both shell and R code and can be used to compute summary statistics and create summary plots for fasta files of sequencing data, including both assembeled genome contigs and raw sequence data. These were initially implemented on command line R. 
