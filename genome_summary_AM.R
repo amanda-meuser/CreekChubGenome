@@ -6,15 +6,16 @@
 # For HiFiasm assembly
 ####################################################################################################################################
 ## Unix:
+## First, check the number of contigs in each file. The p_ctg file contains the contigs for the primary assembly. 
 ## grep "^>" *.fa -c
 ## creekchub_assembly_hifiasm_nov2022.bp.hap1.p_ctg.fa:568
 ## creekchub_assembly_hifiasm_nov2022.bp.hap2.p_ctg.fa:380
 ## creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa:239
 ## creekchub_assembly_hifiasm_nov2022.bp.p_utg.fa:13966
 
-#try to grep "n", n's mean scaffold no n's mean contig
+# Next, try to grep "n" to count the number of scaffolds -- presence of n's mean scaffold, while no n's mean contig
 
-## grep "N" *.fa -c (just looking for lines with N)
+## grep "N" *.fa -c 
 ## creekchub_assembly_hifiasm_nov2022.bp.hap1.p_ctg.fa:0
 ## creekchub_assembly_hifiasm_nov2022.bp.hap2.p_ctg.fa:0
 ## creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa:0
@@ -26,9 +27,9 @@
 ## creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa:0
 ## creekchub_assembly_hifiasm_nov2022.bp.p_utg.fa:0
 
-# so that means no scaffolds, just contigs. scaffolds are made up of contigs plus gaps that are filled with N's
+# So that means no scaffolds, just contigs. scaffolds are made up of contigs plus gaps that are filled with N's
 
-# create scaffold (contig?) lengths file 
+# Finally, create a file with lengths of each contig. I'm only doing this on the p_ctg file, as this is the assembly we're using as our reference genome.
 # awk '/^>/ {if (seqlen){print seqlen}; printf $0"\t";seqlen=0;next; } { seqlen += length($0)}END{print seqlen}' creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa > scafflengths_p_ctg.txt
 
 
@@ -39,11 +40,13 @@ devtools::install_github("karthik/wesanderson")
 library(fastaUtils)
 library(wesanderson)
 
+# pull out a pretty colour palette
 col <- wes_palette("Darjeeling1")
 
 # use the fastaUtils package to calculates L50/90 and N50/90
 fastanalyze(fasta = 'creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa', metrics = F, plot = F, verbose = F)
 
+# pull in the file and get intial stats
 scaff <- read.table("scafflengths_p_ctg.txt", sep="\t")
 head(scaff)
 max(scaff$V2)
