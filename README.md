@@ -19,3 +19,9 @@ R scripts posted here were used for creating plots in the aforementioned manuscr
 `lets_get_kraken.txt` can be followed to create and assess genome contamination against custom Kraken2 databases. 
 
 `repeatmodeler_script.txt` can be followed to assess repetitive regions in the creek chub genome (requires a large amount of computational resources).
+
+## DNA Barcoding files
+
+`AMO22-0800-redo-Fwd_f12.ab1` and `AMO22-0800-redo-Fwd_f12.seq` both contain the forward sequence that was created to check the species identification of the reference genome specimen via DNA barcoding. 
+
+`BOLD_finaltree.pdf` shows the placement of the barcode sequence among other sequences in the BOLD data base, while `IDEngine_Results_Summary.xls` shows the call of species with percent certainty. 
