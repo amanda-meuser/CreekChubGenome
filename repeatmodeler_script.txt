@@ -1,0 +1,12 @@
+# All commands from https://github.com/Dfam-consortium/RepeatModeler, gathered by Amy Pitura Aug 2023
+
+#Create database 
+RepeatModeler/BuildDatabase -name creekchub_hifiasm creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
+
+#Load repeatmodeler 2.0.3 and dependencies:
+module load StdEnv/2020 gcc/9.3.0
+module load repeatmodeler/2.0.3
+
+#Running repeatmodeler with the LTR discovery pipeline
+RepeatModeler -database creekchub_hifiasm -LTRStruct 
