@@ -1,0 +1,40 @@
+# Notes for running BUSCO version 5.2.2 on Cedar by Amy Pitura march 2023
+# Resources used: 
+# https://busco.ezlab.org/busco_userguide.html#running-busco
+# https://docs.alliancecan.ca/wiki/BUSCO
+# https://www.biostars.org/p/9544858/#9544953
+
+# Resources to request for a ~2GB genome:
+8 hours run time 
+1 core 
+8 Gb
+
+# Need to download lineage dataset, such as ray finned fishes:
+wget https://busco-data.ezlab.org/v5/data/lineages/actinopterygii_odb10.2021-02-19.tar.gz
+
+# unzip and untar the dataset
+gunzip actinopterygii_odb10.2021-02-19.tar.gz
+tar xf actinopterygii_odb10.2021-02-19.tar
+
+# Create a virtual environment 
+virtualenv busco_env
+
+# Install the wheel and dependencies
+pip install biopython pandas busco --no-index
+
+# For busco v 5.2.2:
+module load StdEnv/2020  gcc/9.3.0  openmpi/4.0.3
+module load busco/5.2.2
+
+# Activate environment
+source busco_env/bin/activate
+
+# Running busco on creek chub:
+busco --offline --in creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa --lineage_dataset actinopterygii_odb10 --out creekchub_assembly_hifiasm_buscov5_mar2023 --mode genome -f 
+
+# Non-obvious command breakdown 
+--offline --> won't use internet
+-f --> overwrite previous runs 
+--restart --> restart a partial run
+
+
