@@ -1,0 +1,37 @@
+## Running kraken2 on the creek chub genome, Amy P, May 2023
+module load StdEnv/2020 gcc/9.3.0 kraken2/2.1.2
+
+## creating and running on custom databases (can also be done in a single custom database)
+kraken2-build --download-taxonomy --db archaea_database #needs to be done in each database 
+kraken2-build --download-library archaea --db archaea_database
+kraken2-build --build --db archaea_database
+kraken2 --db archaea_database --output hifi_archaea_output.txt --report hifi_archaea_report.txt creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
+kraken2-build --download-library viral --db viral_database
+kraken2-build --build --db viral_database
+kraken2 --db viral_database --output hifi_viral_output.txt --report hifi_viral_report.txt creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
+kraken2-build --download-library human --db human_database
+kraken2-build --build --db human_database
+kraken2 --db human_database --output hifi_human_output.txt --report hifi_human_report.txt creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
+kraken2-build --download-library fungi --db fungi_database
+kraken2-build --build --db fungi_database
+kraken2 --db fungi_database --output hifi_fungi_output.txt --report hifi_fungi_report.txt creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
+kraken2-build --download-library plant --db plant_database
+kraken2-build --build --db plant_database
+kraken2 --db plant_database --output hifi_plant_output.txt --report hifi_plant_report.txt creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
+kraken2-build --download-library protozoa --db protozoa_database
+kraken2-build --build --db protozoa_database
+kraken2 --db protozoa_database --output hifi_protozoa_output.txt --report hifi_protozoa_report.txt creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
+kraken2-build --download-library plasmid --db plasmid_database
+kraken2-build --build --db plasmid_database
+kraken2 --db plasmid_database --output hifi_plasmid_output.txt --report hifi_plasmid_report.txt creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
+kraken2-build --download-library bacteria --db bacteria_database
+kraken2-build --build --db bacteria_database
+kraken2 --db bacteria_database --output hifi_bacteria_output.txt --report hifi_bacteria_report.txt creekchub_assembly_hifiasm_nov2022.bp.p_ctg.fa
+
