@@ -25,3 +25,12 @@ R scripts posted here were used for creating plots in the aforementioned manuscr
 `AMO22-0800-redo-Fwd_f12.ab1` and `AMO22-0800-redo-Fwd_f12.seq` both contain the forward sequence that was created to check the species identification of the reference genome specimen via DNA barcoding. 
 
 `BOLD_finaltree.pdf` shows the placement of the barcode sequence among other sequences in the BOLD data base, while `IDEngine_Results_Summary.xls` shows the call of species with percent certainty. 
+
+## Circos files 
+
+`65989_66042.genomic-CDS.last.new.tdd10.cs0.filtered.dag.all.go_D20_g10_A5.aligncoords.gcoords_edited_R.txt` CoGe DAGChainer syntenic matches between creek chub and fathead minnow. 
+
+`65989_66058.genomic-CDS.last.new.tdd10.cs0.filtered.dag.all.go_D20_g10_A5.aligncoords_edited_R.txt` CoGe DAGChainer syntenic matches between creek chub and zebrafish. 
+
+`karyotype.creekchub.top50.txt`, `karyotype.fathead.txt`, and `karyotype.zebrafish.txt` are properly formatted karyotype files for Circos.
+
