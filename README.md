@@ -4,7 +4,7 @@ R scripts posted here were used for creating plots in the aforementioned manuscr
 
 ## Description of scripts
 
-`busco5_script.txt` runs BUSCO v5.2.2's ray-finned fishes database on the creek chub genome. BUSCO assesses genome assembly quality by quantifying benchmarking universal single-copy orthologs.
+`buscov5_script.txt` runs BUSCO v5.2.2's ray-finned fishes database on the creek chub genome. BUSCO assesses genome assembly quality by quantifying benchmarking universal single-copy orthologs.
 
 `circos_script.conf` Circos configuration file to create a ciruclar plot that illustrates zebrafish-creek chub syntenic matches. 
 
