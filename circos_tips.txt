@@ -1,0 +1,20 @@
+## AP 2023
+
+## Load module
+module load circos
+
+## Run circos with debugging report sent to run.out if necessary 
+circos -conf [circos.conf] -debug_group summary,timer > [run.out]
+
+circos -conf circos_script.conf -debug_group summary,timer > run.out
+
+
+
+## Tips: 
+If you need to change the order of chromosomes, change the order in the karyotype file 
+
+For spacing, it must always be some variation of "r" 
+
+ideogram comes before spacing comes before links 
+
+rules don't seem to work
