@@ -1,6 +1,6 @@
 # A high-quality reference genome for the common creek chub, *Semotilus atromaculatus*
 
-R scripts posted here were used for creating plots in the aforementioned manuscript (now available on bioRxiv: https://doi.org/10.1101/2023.07.14.549000). These scripts will also be posted on DataDryad, upon publication of the manuscript. The reference genome itself can be found on NCBI, under accession number: (coming soon...).
+R scripts posted here were used for creating plots in the aforementioned manuscript (now available on bioRxiv: https://doi.org/10.1101/2023.07.14.549000). The reference genome itself can be found on NCBI, under GenBank accession number GCA_031834385.1, and raw data from Pac-Bio long-read whole genome sequencing can be found on the Sequence Read Archive, under accession number SRX21895170. 
 
 ## Description of scripts
 
